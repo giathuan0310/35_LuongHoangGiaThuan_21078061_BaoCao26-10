@@ -10,7 +10,18 @@ const Screen_01 = () => {
     const[searchFocused,setSearchFocused]=useState(false);
 
     const screenWidth=Dimensions.get('window').width;
-
+// Dùng `useEffect` để gọi API khi component được hiển thị lần đầu
+useEffect(() => {
+    // Gọi API để lấy danh sách danh mục và cập nhật vào state `category`
+    axios.get('https://671d40ae09103098807ca930.mockapi.io/category').then((response) => {
+     setCategory(response.data);
+    });
+    // Gọi API để lấy danh sách địa điểm và cập nhật vào state `location`
+    axios.get('https://671d40ae09103098807ca930.mockapi.io/location').then((response) => {
+     setLocation(response.data);
+    });
+ }, [])
+    const numColumns=4;
 
 
     return (
@@ -50,6 +61,28 @@ const Screen_01 = () => {
 
                
                 </ScrollView>
+ {/* Tiêu đề phần Danh mục */}
+ <View style={styles.sectionContainer}>
+                    <Text style={styles.sectionTitle}>Category</Text>
+                    <Image source={require('../assets/3gach.png')} style={styles.icon3gach}/>
+                </View>
+                
+                {/* Hiển thị danh mục dưới dạng lưới với 4 cột */}
+                <FlatList
+                    data={category}  // Mảng danh mục lấy từ API
+                    keyExtractor={(item) => item.id.toString()}  // Khóa duy nhất cho mỗi danh mục
+                    renderItem={({ item }) => (  // Render mỗi danh mục dưới dạng mục có thể chọn
+                        <TouchableOpacity style={[styles.categoryItem, {width: screenWidth / numColumns }]}>
+                            <View style={styles.categoryIconContainer}>
+                                <Image source={{ uri: item.image }} style={styles.categoryIcon}/>
+                            </View>
+                            <Text style={styles.categoryText}>{item.name}</Text>
+                        </TouchableOpacity>
+                    )}
+                    numColumns={numColumns}  // Thiết lập số cột cho giao diện dạng lưới
+                />
+
+
 
                 {/* Tạo footer */}
                 <View style={styles.bottomNav}>
@@ -167,7 +200,7 @@ const styles = StyleSheet.create({
     sectionContainer:{
         flexDirection: 'row',
         alignItems: 'center',
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
     },
     sectionTitle:{
         fontSize: 16,
