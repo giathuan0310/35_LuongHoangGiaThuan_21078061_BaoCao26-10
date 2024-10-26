@@ -58,11 +58,8 @@ useEffect(() => {
 
                         </View>
                     </View>
-
-               
-                </ScrollView>
- {/* Tiêu đề phần Danh mục */}
- <View style={styles.sectionContainer}>
+{/* Tiêu đề phần Danh mục */}
+<View style={styles.sectionContainer}>
                     <Text style={styles.sectionTitle}>Category</Text>
                     <Image source={require('../assets/3gach.png')} style={styles.icon3gach}/>
                 </View>
@@ -97,6 +94,23 @@ useEffect(() => {
                         <Image source={{ uri: item.image }} style={styles.locationImage}/>
                     )}
                 />
+               {/* Tiêu đề phần Đề xuất */}
+               <View style={styles.sectionContainer}>
+                    <Text style={styles.sectionTitle}>Recommended</Text>
+                </View>
+                
+                {/* Hiển thị các địa điểm đề xuất trong chế độ cuộn ngang */}
+                <FlatList
+                    data={location.slice(3, 5)}  // Lấy 2 mục kế tiếp trong danh sách địa điểm
+                    horizontal
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({ item }) => (
+                        <Image source={{ uri: item.image }} style={styles.locationImageOfRec}/>
+                    )}
+                />
+
+                </ScrollView>
+ 
 
 
                 {/* Tạo footer */}
@@ -256,7 +270,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
     },
     bottomNav:{
-        backgroundColor: '#fff',
+        backgroundColor: '#5958b2',
         flexDirection: 'row',
         justifyContent: 'space-around',
         borderTopWidth: 1,
