@@ -29,7 +29,20 @@ const Screen_01 = () => {
                                 <TextInput style={styles.searchInput}
                                 placeholder='Search here.....'
                                 />
-                                <Image source={require('../assets/searchicon.png')} style={styles.searchIcon} />
+                                <Image source={require('../assets/findicon.png')} style={styles.searchIcon} />
+                            </View>
+
+                        </View>
+
+                        <View style={styles.userInfoContainer}>
+                            <View style={styles.userInfo}>
+                                <Image source={require('../assets/personicon.png')} style={styles.userImage}/>
+                                <View >
+                                    <Text style={styles.welcomeText}>Welcome!</Text>
+                                    <Text style={styles.userName}>Donna Stroupe</Text>
+
+                                </View>
+                                <Image source={require('../assets/ringicon.png')} style={styles.iconBell}/>
                             </View>
 
                         </View>
@@ -38,7 +51,29 @@ const Screen_01 = () => {
                
                 </ScrollView>
 
-               
+                {/* Tạo footer */}
+                <View style={styles.bottomNav}>
+                    <TouchableOpacity style={styles.navItem}>
+                        <Image source={require('../assets/homeicon.png')} style={styles.userImage}/>
+                        <Text style={styles.navLabel}>Home</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.navItem}>
+                        <Image source={require('../assets/exploreicon.png')} style={styles.userImage}/>
+                        <Text style={styles.navLabel}>Explore</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.navItem}>
+                        <Image source={require('../assets/searchicon.png')} style={styles.userImage}/>
+                        <Text style={styles.navLabel}>Search</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.navItem}>
+                        <Image source={require('../assets/profileicon.png')} style={styles.userImage}/>
+                        <Text style={styles.navLabel}>Profile</Text>
+                    </TouchableOpacity>
+                </View>
+
             </View>
         </SafeAreaView>
     );
@@ -127,6 +162,7 @@ const styles = StyleSheet.create({
     iconBell:{
         width: 30,
         height: 30,
+        
     },
     sectionContainer:{
         flexDirection: 'row',
