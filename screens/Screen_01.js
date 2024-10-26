@@ -82,6 +82,21 @@ useEffect(() => {
                     numColumns={numColumns}  // Thiết lập số cột cho giao diện dạng lưới
                 />
 
+{/* Tiêu đề phần Địa điểm phổ biến */}
+<View style={styles.sectionContainer}>
+                    <Text style={styles.sectionTitle}>Popular Destination</Text>
+                    <Image source={require('../assets/3gach.png')} style={styles.icon3gach}/>
+                </View>
+                
+                {/* Hiển thị các địa điểm phổ biến trong chế độ cuộn ngang */}
+                <FlatList
+                    data={location.slice(0, 3)}  // Lấy 3 mục đầu tiên trong danh sách địa điểm
+                    horizontal  // Thiết lập danh sách hiển thị theo chiều ngang
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({ item }) => (
+                        <Image source={{ uri: item.image }} style={styles.locationImage}/>
+                    )}
+                />
 
 
                 {/* Tạo footer */}
