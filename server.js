@@ -96,8 +96,36 @@ app.delete('/deleteUser/:name', (req, res) => {
     });
 });
 
+// Endpoint để đăng ký tài khoản
+app.post('/api/register', (req, res) => {
+    const { name, pass, avatar } = req.body;
+  
+    // Kiểm tra tên người dùng đã tồn tại hay chưa
+    const checkQuery = 'SELECT * FROM user WHERE name = ?';
+    db.query(checkQuery, [name], (err, result) => {
+      if (err) {
+        console.error('Lỗi:', err);
+        return res.status(500).json({ error: 'Lỗi !' });
+      }
+  
+      if (result.length > 0) {
+        return res.status(409).json({ error: 'Username đã tồn tại' });
+      }
+  
+      // Thêm người dùng vào cơ sở dữ liệu
+      const insertQuery = 'INSERT INTO user (name, pass, avatar) VALUES (?, ?, ?)';
+      db.query(insertQuery, [name, pass, avatar], (err, result) => {
+        if (err) {
+          console.error('Lỗi:', err); // Log lỗi insert
+          return res.status(500).json({ error: 'Lỗi !' });
+        }
+        res.status(201).json({ message: 'Người dùng đã đăng ký thành công', userId: result.insertId });
+      });
+    });
+  });
+
 //Chạy 
-app.listen(3000,'192.168.2.58',()=>{
+app.listen(3000,'192.168.132.2',()=>{
 
 console.log("server đang chạy cổng 3000")
 

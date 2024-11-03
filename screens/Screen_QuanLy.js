@@ -27,7 +27,7 @@ const Screen_QuanLy = () => {
     const fetchUsers = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('http://192.168.2.58:3000/login');
+            const response = await axios.get('http://192.168.132.2:3000/login');
             setUsers(response.data);
         } catch (error) {
             Alert.alert("Error", "Failed to load user data");
@@ -46,7 +46,7 @@ const Screen_QuanLy = () => {
     // Delete user
     const deleteUser = async () => {
         try {
-            const response = await axios.delete(`http://192.168.2.58:3000/deleteUser/${selectedUserName}`);
+            const response = await axios.delete(`http://192.168.132.2:3000/deleteUser/${selectedUserName}`);
             if (response.status === 200) {
                 // Remove deleted user from local state
                 setUsers(users.filter(user => user.name !== selectedUserName));

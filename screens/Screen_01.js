@@ -26,7 +26,7 @@ const Screen_01 = () => {
 
         // Fetch avatar based on username
         if (username) {
-            axios.get(`http://192.168.2.58:3000/avatar/${username}`)
+            axios.get(`http://192.168.132.2:3000/avatar/${username}`)
                 .then((response) => {
                     setAvatar(response.data.avatar); // Set avatar from response
                 })
@@ -47,6 +47,7 @@ const Screen_01 = () => {
         navigation.navigate('LoginScreen');
         setIsModalVisible(false); // Đóng modal sau khi log out
     };
+    
 
     return (
         <SafeAreaView style={styles.safeArea}>
@@ -150,9 +151,9 @@ const Screen_01 = () => {
                         <Text style={styles.navLabel}>Search</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.navItem} onPress={() => setIsModalVisible(true)}> {/* Mở modal khi bấm vào nút Profile */}
+                    <TouchableOpacity style={styles.navItem}  onPress={() => setIsModalVisible(true)}> {/* Mở modal khi bấm vào nút Profile */}
                         <Image source={require('../assets/profileicon.png')} style={styles.userImage} />
-                        <Text style={styles.navLabel}>Profile</Text>
+                        <Text style={styles.navLabel} >Profile</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -166,8 +167,10 @@ const Screen_01 = () => {
                     <View style={styles.modalContainer}>
                         <View style={styles.modalContent}>
                             <Text style={styles.modalTitle}>Are you sure you want to log out?</Text>
+
                             <Button title="Log Out" onPress={handleLogout} color="#FF0000" /> {/* Xử lý log out */}
                             <Button title="Cancel" onPress={() => setIsModalVisible(false)} /> {/* Đóng modal */}
+                           
                         </View>
                     </View>
                 </Modal>

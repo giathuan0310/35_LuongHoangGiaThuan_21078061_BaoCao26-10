@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Modal } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Modal,Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
@@ -25,7 +25,7 @@ export default function LoginScreen() {
   return;
 }
     // Gọi API để xác thực thông tin người dùng
-    fetch('http://192.168.2.58:3000/login', {
+    fetch('http://192.168.132.2:3000/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -88,6 +88,34 @@ export default function LoginScreen() {
       <TouchableOpacity onPress={handleLogin} style={styles.continueButton}>
         <Text style={styles.continueText}>Continue</Text>
       </TouchableOpacity>
+      <View style={styles.hr}/>
+      <TouchableOpacity  onPress={()=> navigation.navigate('Register')}>
+        <Text style={styles.RegisterText}>Register</Text>
+      </TouchableOpacity>
+
+      <View style={styles.style8}>
+        <Text style={styles.textor}>or</Text>
+      </View>
+      <View style={styles.socialContainer}>
+        <TouchableOpacity style={styles.socialButton}>
+          <Image
+            source={require("../assets/google.png")}
+            style={styles.socialIcon}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.socialButton}>
+          <Image
+            source={require("../assets/face.png")}
+            style={styles.socialIcon}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.socialButton}>
+          <Image
+            source={require("../assets/apple.png")}
+            style={styles.socialIcon}
+          />
+        </TouchableOpacity>
+      </View>
 
       <Modal
         animationType="slide"
@@ -104,6 +132,9 @@ export default function LoginScreen() {
           </View>
         </View>
       </Modal>
+
+
+
     </View>
   );
 }
@@ -176,10 +207,18 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     alignItems: 'center',
   },
+  
   continueText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  RegisterText: {
+    color: 'black',
+    fontSize: 16,
+    
+    alignItems: 'center',
+    paddingLeft:150
   },
   orContainer: {
     flexDirection: 'row',
@@ -239,4 +278,16 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end', // Aligns the content at the bottom of the screen
     marginBottom: 20, // Adds some spacing before the modal and button
   },
+  hr: {
+    width: '100%',
+    height: 1,
+    backgroundColor: '#ccc',
+    marginVertical: 20,
+  },
+  style8: {
+    marginTop: 30,
+    alignItems:'center'
+  },
+  
+  
 });
