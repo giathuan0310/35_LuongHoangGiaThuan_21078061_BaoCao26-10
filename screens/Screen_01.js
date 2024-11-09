@@ -13,7 +13,7 @@ const Screen_01 = () => {
 
     const username = localStorage.getItem('name') || 'Khách';
     const [avatar, setAvatar] = useState(''); // State for avatar
-
+    
     useEffect(() => {
         // Gọi API để lấy danh sách danh mục và cập nhật vào state `category`
         axios.get('https://671d40ae09103098807ca930.mockapi.io/category').then((response) => {
@@ -26,7 +26,7 @@ const Screen_01 = () => {
 
         // Fetch avatar based on username
         if (username) {
-            axios.get(`http://192.168.132.2:3000/avatar/${username}`)
+            axios.get(`http://localhost:3000/avatar/${username}`)
                 .then((response) => {
                     setAvatar(response.data.avatar); // Set avatar from response
                 })
@@ -47,6 +47,7 @@ const Screen_01 = () => {
         navigation.navigate('LoginScreen');
         setIsModalVisible(false); // Đóng modal sau khi log out
     };
+
     
 
     return (
@@ -151,10 +152,11 @@ const Screen_01 = () => {
                         <Text style={styles.navLabel}>Search</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.navItem}  onPress={() => setIsModalVisible(true)}> {/* Mở modal khi bấm vào nút Profile */}
+                    <TouchableOpacity style={styles.navItem}  onPress={() => setIsModalVisible(true)}> 
                         <Image source={require('../assets/profileicon.png')} style={styles.userImage} />
                         <Text style={styles.navLabel} >Profile</Text>
                     </TouchableOpacity>
+                    
                 </View>
 
                 {/* Modal cho Logout */}
@@ -168,9 +170,9 @@ const Screen_01 = () => {
                         <View style={styles.modalContent}>
                             <Text style={styles.modalTitle}>Are you sure you want to log out?</Text>
 
-                            <Button title="Log Out" onPress={handleLogout} color="#FF0000" /> {/* Xử lý log out */}
-                            <Button title="Cancel" onPress={() => setIsModalVisible(false)} /> {/* Đóng modal */}
-                           
+                            <Button title="Log Out" onPress={handleLogout} color="#FF0000" /> 
+                            <Button title="Cancel" onPress={() => setIsModalVisible(false)}  />
+                            
                         </View>
                     </View>
                 </Modal>

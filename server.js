@@ -124,8 +124,61 @@ app.post('/api/register', (req, res) => {
     });
   });
 
+  app.put('/updateUser/:id', (req, res) => {
+    const userId = req.params.id;  // Extract user ID from request parameters
+    const { name, pass, avatar } = req.body;  // Extract new data from request body
+  
+    // Ensure MySQL connection is available
+    if (!db) {
+      return res.status(500).send("MySQL connection is not established");
+    }
+  
+    // Create an array to hold the fields for the update query
+    let updateFields = [];
+    let updateValues = [];
+  
+    if (name) {
+      updateFields.push("name = ?");
+      updateValues.push(name);
+    }
+    if (pass) {
+      updateFields.push("pass = ?");
+      updateValues.push(pass);
+    }
+    if (avatar) {
+      updateFields.push("avatar = ?");
+      updateValues.push(avatar);
+    }
+  
+    // If there are no fields to update, return an error
+    if (updateFields.length === 0) {
+      return res.status(400).json({ message: 'No data to update' });
+    }
+  
+    // Create the SQL query
+    const sql = `UPDATE users SET ${updateFields.join(', ')} WHERE id = ?`;
+  
+    // Add userId as the last value in the updateValues array
+    updateValues.push(userId);
+  
+    // Perform the update operation
+    db.query(sql, updateValues, (error, results) => {
+      if (error) {
+        console.error("Database error:", error);
+        return res.status(500).json({ error: 'Database error' });
+      }
+  
+      if (results.affectedRows > 0) {
+        res.json({ message: 'User updated successfully' });
+      } else {
+        res.status(404).json({ message: 'User not found' });
+      }
+    });
+  });
+  
+  
 //Chạy 
-app.listen(3000,'192.168.132.2',()=>{
+app.listen(3000,()=>{
 
 console.log("server đang chạy cổng 3000")
 

@@ -11,6 +11,8 @@ export default function LoginScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   const [loginError, setLoginError] = useState('');
   const [userData, setUserData] = useState(null); // Lưu dữ liệu người dùng ở đây
+
+  
   const handleLogin = async () => {
     if (!name || !password) {
       setLoginError('Bạn Phải Nhập Thông Tin!');
@@ -25,7 +27,7 @@ export default function LoginScreen() {
   return;
 }
     // Gọi API để xác thực thông tin người dùng
-    fetch('http://192.168.132.2:3000/login', {
+    fetch('http://localhost:3000/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
